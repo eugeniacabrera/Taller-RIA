@@ -14,25 +14,45 @@ export class ToolbarComponent implements OnInit {
   ngOnInit(): void {}
 
   dataUsu = [];
- 
+  esAdmin: boolean;
+  esDocente: boolean;
+  esAdminDocente: boolean;
+
+
   ngDoCheck() {
    
     const stringdata =  localStorage.getItem('datosLogueado');
     
     if(stringdata != null){
         const jsondata = JSON.parse(stringdata);
-        this.dataUsu = jsondata;         
+        this.dataUsu = jsondata;       
+        console.log('dataUsu: ', this.dataUsu); 
+        if ((jsondata.roles[0] === 'ADMIN' || jsondata.roles[0] === 'DOCENTE') && ((jsondata.roles[1] !== undefined) && (jsondata.roles[1] === 'ADMIN' || jsondata.roles[1] === 'DOCENTE'))) {
+            this.esAdminDocente = true;
+            this.esAdmin = false;
+            this.esDocente = false;
+        }else{
+          if (jsondata.roles[0] === 'ADMIN') {
+              this.esAdmin = true;
+              this.esDocente = false;
+              this.esAdminDocente = false;
+          }else {
+            if (jsondata.roles[0] === 'DOCENTE') {
+              this.esDocente = true;
+              this.esAdmin = false;
+              this.esAdminDocente = false;
+          }
+          }
+          
+        }
+        
+        
     }
     else{
       this.dataUsu = null;
     }
   }
   
-
-  // y desde toolbar html creo que pdoes acceder
-  // en html <a6b-header [lastName]="lastEdited"></a6b-header>
-
-  //dataUsu = this.authService.dataUsuarioLogueado;
 
 
 }

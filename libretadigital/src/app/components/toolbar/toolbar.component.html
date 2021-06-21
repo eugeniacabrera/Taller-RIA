@@ -11,15 +11,26 @@
             <div fxShow="true" fxHide.lt-md>
                 
                 <div *ngIf="dataUsu">
-                    <a routerLink="/InicioAdmin" mat-raised-button color="primary" style="margin-right: 3em;">INICIO</a>
-                    <span>Bienvenido {{ dataUsu.username }}</span>
+                    <div *ngIf="esAdmin">
+                        <a routerLink="/InicioAdmin" mat-raised-button color="primary" style="margin-right: 3em;">INICIO ADMIN</a>
+                        <span>Bienvenido {{ dataUsu.username }}</span>
+                    </div>
+                    <div *ngIf="esDocente">
+                        <a routerLink="/InicioDocente" mat-raised-button color="primary" style="margin-right: 3em;">INICIO DOCENTE</a>
+                        <span>Bienvenido {{ dataUsu.username }}</span>
+                    </div>
+                    <div *ngIf="esAdminDocente">    
+                        <a routerLink="/InicioAdmin" mat-raised-button color="primary" style="margin-right: 3em;">INICIO ADMIN</a>
+                        <a routerLink="/InicioDocente" mat-raised-button color="primary" style="margin-right: 3em;">INICIO DOCENTE</a>
+                        <span>Bienvenido {{ dataUsu.username }}</span>
+                    </div>
+                    
                 </div>
                 <div *ngIf="!dataUsu">
                     <a routerLink="/Registrar" mat-raised-button>Registrarse</a>
                     <a routerLink="/Ingresar" mat-raised-button>Ingresar</a>
                 </div> 
                 
-
             </div>
         </mat-toolbar-row>
     </mat-toolbar>

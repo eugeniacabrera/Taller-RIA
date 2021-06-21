@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CargarEstudiantes, EditarEstudiante, EliminarEstudiante, RegistrarEstudiante } from 'src/services/Estudiante';
 import { EstudianteService } from 'src/services/estudiante.service';
 
 // export interface PeriodicElement {
