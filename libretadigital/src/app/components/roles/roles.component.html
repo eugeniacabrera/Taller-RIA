@@ -1,0 +1,59 @@
+
+    
+    <div *ngIf="mostrarTabla == true">
+        <div class="parent">
+            <h1>ROLES</h1>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 estiloTabla">
+    
+                <!-- usuario Column -->
+                <ng-container matColumnDef="usuario">
+                    <th mat-header-cell *matHeaderCellDef class="headerTable"> USUARIO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.userName}}</td>
+                </ng-container>
+    
+                <!-- rol Column -->
+                <ng-container matColumnDef="rol">
+                    <th mat-header-cell *matHeaderCellDef class="headerTable"> ROLES </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.role}}
+                    </td>
+                </ng-container>
+    
+                <!-- Action Column -->
+                <ng-container matColumnDef="accion">
+                    <th mat-header-cell *matHeaderCellDef class="headerTable"> ACCIÓN </th>
+                    <td mat-cell *matCellDef="let element">
+    
+                        <a (click)="EditarRol(element.userName)" mat-mini-fab color="primary">
+                            <mat-icon>edit</mat-icon>
+                        </a>
+    
+                    </td>
+                </ng-container>
+    
+    
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="mostrarTablaEditar == true">
+        <div *ngIf=" usuarioSeleccionado !== '' ">
+            <div class="parent">
+                <h1>EDITAR ROL</h1>
+                
+                <mat-form-field appearance="fill">
+                    <mat-label>Seleccionar Rol</mat-label>
+                    <mat-select [(value)]="selectedRol">
+                        <mat-option value="ADMIN">ADMIN</mat-option>
+                        <mat-option value="DOCENTE">DOCENTE</mat-option>
+                    </mat-select>
+                </mat-form-field><br />
+                
+                <button class="estiloBoton" mat-raised-button color="primary" (click)="GuardarCambios(usuarioSeleccionado, selectedRol)">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+    
+

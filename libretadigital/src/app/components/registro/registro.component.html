@@ -1,0 +1,24 @@
+<div class="parent">
+    <mat-card class="estiloCard">
+
+        <h2>REGISTRARSE</h2>
+        <form [formGroup]="USU">
+
+            <mat-form-field class="estiloField">
+                <mat-label>Nombre de usuario:</mat-label>
+                <input type="text" formControlName="username" matInput>
+            </mat-form-field><br />
+            <mat-form-field class="estiloField">
+                <mat-label>Email:</mat-label>
+                <input type="email" formControlName="email" matInput />
+            </mat-form-field><br />
+            <mat-form-field class="estiloField">
+                <mat-label>Contraseña:</mat-label>
+                <input type="password" formControlName="password" matInput>
+            </mat-form-field><br />
+            <button class="estiloBoton" mat-raised-button color="primary" (click)="Registrar()">Registrarse</button>
+        </form>
+
+    </mat-card>
+
+</div>

@@ -1,0 +1,28 @@
+
+<!-- Toolbar -->
+
+<div>
+    <mat-toolbar class="header">
+        <mat-toolbar-row>
+                    
+            <img src="assets/img/logoHeader.png" class="logoHeader">
+            <span class="menu-spacer"></span>
+
+            <div fxShow="true" fxHide.lt-md>
+                
+                <div *ngIf="dataUsu">
+                    <a routerLink="/InicioAdmin" mat-raised-button color="primary" style="margin-right: 3em;">INICIO</a>
+                    <span>Bienvenido {{ dataUsu.username }}</span>
+                </div>
+                <div *ngIf="!dataUsu">
+                    <a routerLink="/Registrar" mat-raised-button>Registrarse</a>
+                    <a routerLink="/Ingresar" mat-raised-button>Ingresar</a>
+                </div> 
+                
+
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+
+</div>

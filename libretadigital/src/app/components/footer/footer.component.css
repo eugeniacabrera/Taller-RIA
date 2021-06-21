@@ -1,0 +1,26 @@
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: rgb(58,69,75);
+   color: white;
+   text-align: center;
+   height: 67px;
+   display: flex;
+   align-items: center;
+   justify-content: space-around; 
+}
+
+.logoFooter{
+   height: inherit;
+   margin: 0.5em;
+   float: right;
+   
+}
+
+/* .derechosReservados{
+   justify-content: center;
+} */
+
+

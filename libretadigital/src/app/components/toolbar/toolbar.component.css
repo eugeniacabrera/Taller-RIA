@@ -1,0 +1,16 @@
+.header{
+    background: white;
+    border-bottom: black 0.1em solid;
+    color: black;
+    border-top: rgb(8,177,240) 0.1em solid;
+}
+
+.logoHeader{
+      height: inherit;
+}
+
+.menu-spacer {
+  flex: 1 1 auto;
+}
+
+

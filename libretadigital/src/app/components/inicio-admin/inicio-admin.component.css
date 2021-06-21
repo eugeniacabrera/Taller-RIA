@@ -1,0 +1,35 @@
+.hero-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../../assets/img/background.jpg");
+  height: 85%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  overflow: hidden; /* Hide scrollbars */
+}
+
+.parent {
+    position: relative;
+  
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 12em;
+  text-align: center;
+} 
+
+.estiloCard{
+    width: 65%;
+    height: 65%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.tituloMenu {
+    margin-left: 3.5em;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    FONT-SIZE: larger;
+}

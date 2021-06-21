@@ -1,0 +1,17 @@
+.parent {
+    position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 6em;
+  text-align: center;
+} 
+
+.estiloTabla{
+    width: 50%;
+}
+
+.headerTable{
+    text-align: center;
+}
