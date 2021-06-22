@@ -12,22 +12,25 @@
                 
                 <div *ngIf="dataUsu">
                     <div *ngIf="esAdmin">
-                        <a routerLink="/InicioAdmin" mat-raised-button color="primary" style="margin-right: 3em;">INICIO ADMIN</a>
+                        <a routerLink="/InicioAdmin" mat-raised-button color="primary" style="margin-right: 2em;">INICIO ADMIN</a>
+                        <button mat-stroked-button color="primary" (click)="Logout()" style="margin-right: 2em;">Logout</button>
                         <span>Bienvenido {{ dataUsu.username }}</span>
                     </div>
                     <div *ngIf="esDocente">
-                        <a routerLink="/InicioDocente" mat-raised-button color="primary" style="margin-right: 3em;">INICIO DOCENTE</a>
+                        <a routerLink="/InicioDocente" mat-raised-button color="primary" style="margin-right: 2em;">INICIO DOCENTE</a>
+                        <button mat-stroked-button color="primary" (click)="Logout()" style="margin-right: 2em;">Logout</button>
                         <span>Bienvenido {{ dataUsu.username }}</span>
                     </div>
                     <div *ngIf="esAdminDocente">    
-                        <a routerLink="/InicioAdmin" mat-raised-button color="primary" style="margin-right: 3em;">INICIO ADMIN</a>
-                        <a routerLink="/InicioDocente" mat-raised-button color="primary" style="margin-right: 3em;">INICIO DOCENTE</a>
+                        <a routerLink="/InicioAdmin" mat-raised-button color="primary" style="margin-right: 2em;">INICIO ADMIN</a>
+                        <a routerLink="/InicioDocente" mat-raised-button color="primary" style="margin-right: 2em;">INICIO DOCENTE</a>
+                        <button mat-stroked-button color="primary" (click)="Logout()" style="margin-right: 2em;">Logout</button>
                         <span>Bienvenido {{ dataUsu.username }}</span>
                     </div>
                     
                 </div>
                 <div *ngIf="!dataUsu">
-                    <a routerLink="/Registrar" mat-raised-button>Registrarse</a>
+                    <a routerLink="/Registrar" mat-raised-button style="margin-right: 2em;">Registrarse</a>
                     <a routerLink="/Ingresar" mat-raised-button>Ingresar</a>
                 </div> 
                 

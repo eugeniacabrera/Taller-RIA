@@ -33,8 +33,6 @@ export class CursoService {
   }
 
   public EditarCurso(CursoEditado: object, id: string){
-    
-
     return this.http.put(this.URL_API + 'Cursos/'+ `${id}`, CursoEditado).subscribe(
         (val) => {
             console.log("PUT call successful value returned in body", 
@@ -62,5 +60,10 @@ export class CursoService {
         });
 
   }
+
+  public MisCursos(){
+    return this.http.get(this.URL_API + 'Cursos/MisCursos');
+  }
+
 
 }

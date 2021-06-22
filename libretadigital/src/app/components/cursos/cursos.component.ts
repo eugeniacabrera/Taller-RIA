@@ -54,9 +54,7 @@ export class CursosComponent implements OnInit {
   dataSource = this.Cursos;
   mostrarFormAgregar = false;
   mostrarTablaCursos = true;
-  mostrarFormEditar = false;
-  //mostrarInfoCurso = false;
-  
+  mostrarFormEditar = false;  
   
   cursoSeleccionado = [];
   nombreCursoSeleccionado= '';
@@ -159,8 +157,9 @@ export class CursosComponent implements OnInit {
       if(curso.nombre === this.nombreCursoSeleccionado){
         this.cursoSeleccionado.push(curso);
         this.descripcionCursoSeleccionado = curso.descripcion;
-        this.programaCursoSeleccionado = curso.programa;   
-        // seteo los formcontrols de CURSOEDITADO
+        this.programaCursoSeleccionado = curso.programa; 
+
+        // seteo los formcontrols de CURSOEDITADO:
         this.CURSOEDITADO.controls['nombre'].setValue(this.nombreCursoSeleccionado); 
         this.CURSOEDITADO.controls['descripcion'].setValue(this.descripcionCursoSeleccionado); 
         this.CURSOEDITADO.controls['programa'].setValue(this.programaCursoSeleccionado);     
@@ -169,7 +168,6 @@ export class CursosComponent implements OnInit {
     
     this.mostrarFormAgregar = false;
     this.mostrarTablaCursos = false;
-    //this.mostrarInfoCurso = false;
     this.mostrarFormEditar = true;
     
   }

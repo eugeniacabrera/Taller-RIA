@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/services/AuthService';
 
 
@@ -9,7 +10,7 @@ import { AuthService } from 'src/services/AuthService';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private router:Router, private authService: AuthService) { }
 
   ngOnInit(): void {}
 
@@ -25,8 +26,7 @@ export class ToolbarComponent implements OnInit {
     
     if(stringdata != null){
         const jsondata = JSON.parse(stringdata);
-        this.dataUsu = jsondata;       
-        console.log('dataUsu: ', this.dataUsu); 
+        this.dataUsu = jsondata;   
         if ((jsondata.roles[0] === 'ADMIN' || jsondata.roles[0] === 'DOCENTE') && ((jsondata.roles[1] !== undefined) && (jsondata.roles[1] === 'ADMIN' || jsondata.roles[1] === 'DOCENTE'))) {
             this.esAdminDocente = true;
             this.esAdmin = false;
@@ -53,6 +53,9 @@ export class ToolbarComponent implements OnInit {
     }
   }
   
-
+  Logout(){
+    this.authService.logout();
+    this.router.navigate(['/Ingresar']);
+  }
 
 }

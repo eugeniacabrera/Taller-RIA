@@ -36,6 +36,7 @@ import { AuthService } from 'src/services/AuthService';
 import { LoginComponent } from './components/login/login.component';
 import { CursoService } from 'src/services/curso.service';
 import { EstudianteService } from 'src/services/estudiante.service';
+import { CursosDocenteComponent } from './components/cursos-docente/cursos-docente.component';
 
 
 //<mat-toolbar>
@@ -54,6 +55,7 @@ import { EstudianteService } from 'src/services/estudiante.service';
     EstudiantesComponent,
     UsuariosComponent,
     LoginComponent,
+    CursosDocenteComponent,
     
   ],
   imports: [

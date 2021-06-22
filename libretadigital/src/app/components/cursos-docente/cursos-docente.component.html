@@ -1,0 +1,80 @@
+<div *ngIf="mostrarTablaCursosDocente == true">
+
+    <div class="parent">
+        <div class="tituloTabla">
+            <h1>MIS CURSOS</h1>
+        </div>
+
+        <table mat-table [dataSource]="CursosDocente" class="mat-elevation-z8 estiloTabla">
+            
+            <!-- NOMBRE CURSOS Column -->
+            <ng-container matColumnDef="curso">
+                <th mat-header-cell *matHeaderCellDef class="headerTable"> CURSO </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombre}} 
+                    
+                </td>
+            </ng-container>
+
+            <!-- ACCION Column -->
+            <ng-container matColumnDef="accion">
+                <th mat-header-cell *matHeaderCellDef class="headerTable"> ACCIÓN </th>
+                <td mat-cell *matCellDef="let element">
+                    <a (click)="VerCurso(element.id)" mat-icon-button color="primary">
+                        <mat-icon>remove_red_eye</mat-icon>
+                    </a>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="mostrarInfoCurso == true">
+    <mat-grid-list cols="2" rowHeight="2:1"> 
+        <!-- INFO CURSO -->
+        <mat-grid-tile>
+
+            <div class="tituloCurso">
+                <p>INFORMACIÓN CURSO</p>
+            </div>
+            <div class="infoCurso">
+                <div>
+                    <label style="font-size: 1.3em;font-weight: 400;">NOMBRE:</label>
+                    <p>{{ nombreCursoSeleccionado }}</p> <br />
+                </div>
+                <div>
+                    <label style="font-size: 1.3em;font-weight: 400;">DESCRIPCIÓN:</label>
+                    <p>{{ descripcionCursoSeleccionado }}</p><br />
+                </div>
+                <div>
+                    <label style="font-size: 1.3em;font-weight: 400;">PROGRAMA:</label>
+                    <p>{{ programaCursoSeleccionado}}</p><br />
+                </div>
+                <div>
+                    <label style="font-size: 1.3em;font-weight: 400;">DOCENTE:</label>
+                    <p>{{ docenteCursoSeleccionado }}</p><br />
+                </div>
+
+            </div>
+
+        </mat-grid-tile>
+
+        <!-- LINK A ESTUDIANTES CLASES EVALUACIONES -->
+        <mat-grid-tile>
+            <div>
+                <mat-card class="elementosCurso">
+                    <a routerLink="#" class="tituloMenu">ESTUDIANTES</a>
+                </mat-card><br />
+                <mat-card class="elementosCurso">
+                    <a routerLink="#" class="tituloMenu">CLASES</a>
+                </mat-card><br />
+                <mat-card class="elementosCurso">
+                    <a routerLink="#" class="tituloMenu">EVALUACIONES</a>
+                </mat-card><br />
+            </div>
+
+        </mat-grid-tile>
+    </mat-grid-list>
+
+</div>

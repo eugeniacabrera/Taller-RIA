@@ -39,6 +39,8 @@ export class AuthService {
     logout() {
         localStorage.removeItem("id_token");
         localStorage.removeItem("expires_at");
+        localStorage.removeItem("datosLogueado");
+
     }
 
     ObtenerDataInfoUsuarioLogueado(){
@@ -67,17 +69,7 @@ export class AuthService {
 
     }
 
-    // retorna json data usuario logueado
-    // JsonDataLogueado(){
-    //     const stringdata =  localStorage.getItem('datosLogueado');
-    //     if(stringdata != null){
-    //         const jsondata = JSON.parse(stringdata);
-    //         this.dataUsuarioLogueado = jsondata; // cargo la variable del servicio
-    //         return jsondata;
-    //     }
-    //     return null;   
-    // }
-
+   
     
    
 }
