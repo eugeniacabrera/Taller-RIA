@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule}from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -37,6 +36,8 @@ import { LoginComponent } from './components/login/login.component';
 import { CursoService } from 'src/services/curso.service';
 import { EstudianteService } from 'src/services/estudiante.service';
 import { CursosDocenteComponent } from './components/cursos-docente/cursos-docente.component';
+import { ClasesComponent } from './components/clases/clases.component';
+import { ClaseService } from 'src/services/clase.service';
 
 
 //<mat-toolbar>
@@ -56,6 +57,7 @@ import { CursosDocenteComponent } from './components/cursos-docente/cursos-docen
     UsuariosComponent,
     LoginComponent,
     CursosDocenteComponent,
+    ClasesComponent,
     
   ],
   imports: [
@@ -80,7 +82,7 @@ import { CursosDocenteComponent } from './components/cursos-docente/cursos-docen
    MatSelectModule
    
   ],
-  providers: [EstudianteService, CursoService, UsuarioServiceService, AuthService, {
+  providers: [ClaseService, EstudianteService, CursoService, UsuarioServiceService, AuthService, {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true

@@ -81,7 +81,6 @@ export class CursosComponent implements OnInit {
     
     this.mostrarTablaCursos = false;
     this.mostrarFormEditar = false;
-    //this.mostrarInfoCurso = false;
     this.mostrarFormAgregar = true;
 
   }
@@ -171,8 +170,6 @@ export class CursosComponent implements OnInit {
     this.mostrarFormEditar = true;
     
   }
-
- 
 
   // // enviar id del objeto editado al servicio para que le pegue a la api y lo actualice
   Editar(idDocente){

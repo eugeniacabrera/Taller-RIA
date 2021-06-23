@@ -46,6 +46,7 @@ export class CursosDocenteComponent implements OnInit {
   // muestra seccion en el html con la info curso, mas link a estudiantes y clases relacionadas.
   VerCurso(id){
     this.idCursoSeleccionado = id;
+    localStorage.setItem('idCursoSeleccionado', this.idCursoSeleccionado); // para acceder desde clases
     for(let cursodocente of this.CursosDocente){
       if(cursodocente.id === this.idCursoSeleccionado){
         this.cursoDocenteSeleccionado.push(cursodocente);
