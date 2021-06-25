@@ -3,14 +3,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EstudianteService } from 'src/services/estudiante.service';
 
-// export interface PeriodicElement {
-//   documento: number;
-//   apellido1: string;
-//   apellido2: string;
-//   nombre1: string;
-//   nombre2: string;
-//   fnac: string
-// }
 
 
 @Component({
@@ -73,8 +65,6 @@ export class EstudiantesComponent implements OnInit {
 
   // enviar objeto nuevo al servicio para que le pegue a la api
   Agregar() {
-
-
     // objeto que se le envia a la api
     let estudiantejson = {
         "documento": this.ESTU.value.documento,

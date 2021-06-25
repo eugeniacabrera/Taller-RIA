@@ -29,6 +29,9 @@
                     <a (click)="Eliminar(element.id)" mat-icon-button color="warn">
                         <mat-icon>delete</mat-icon>
                     </a>
+                    <a (click)="VerCurso(element.nombre)" mat-icon-button color="primary">
+                        <mat-icon>remove_red_eye</mat-icon>
+                    </a> 
 
                 </td>
             </ng-container>
@@ -88,8 +91,8 @@
                     <input type="text" formControlName="programa" matInput>
                 </mat-form-field><br />
                 <mat-form-field appearance="fill" class="estiloField">
-                    <mat-label>Seleccionar docente</mat-label>
-                    <mat-select [(value)]="selectedDocente">
+                    <!-- <mat-label>Seleccionar docente</mat-label> -->
+                    <mat-select [(value)]="selectedDocente" [placeholder]="selectedDocente">
                         <mat-option *ngFor="let docente of Docentes" [value]="docente.userId">
                             {{docente.userName}}
                         </mat-option>
@@ -102,4 +105,55 @@
         </mat-card>
 
     </div>
+</div>
+
+
+<div *ngIf="mostrarInfoCurso == true">
+    <mat-grid-list cols="2" rowHeight="2:1">
+        <!-- INFO CURSO -->
+        <mat-grid-tile>
+
+            <div class="tituloCurso">
+                <p>INFORMACIÓN CURSO</p>
+            </div>
+            <div class="infoCurso">
+                <div>
+                    <label style="font-size: 1.3em;font-weight: 400;">NOMBRE:</label>
+                    <p>{{ cursoSeleccionado[0].nombre }}</p> <br />
+                </div>
+                <div>
+                    <label style="font-size: 1.3em;font-weight: 400;">DESCRIPCIÓN:</label>
+                    <p>{{ cursoSeleccionado[0].descripcion }}</p><br />
+                </div>
+                <div>
+                    <label style="font-size: 1.3em;font-weight: 400;">PROGRAMA:</label>
+                    <p>{{ cursoSeleccionado[0].programa}}</p><br />
+                </div>
+                <div>
+                    <label style="font-size: 1.3em;font-weight: 400;">DOCENTE:</label>
+                    <p>{{ cursoSeleccionado[0].docente.userName }}</p><br />
+                </div>
+
+            </div>
+
+        </mat-grid-tile>
+
+        <!-- AGREGAR ESTUDIANTES AL CURSO -->
+        <mat-grid-tile>
+            <div style="margin-top: -20em;">
+
+                <label style="font-size: 1.3em;font-weight: 400; ">AGREGAR ESTUDIANTES AL CURSO:</label>
+                <mat-form-field appearance="fill" class="elementosCurso" >
+                    <mat-label>Seleccionar estudiante:</mat-label>
+                    <mat-select [formControl]="estudiantesFormControl" multiple>
+                        <mat-option *ngFor="let estu of estudiantesList" [value]="estu.id">{{estu.primerNombre}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button class="estiloBoton" mat-raised-button color="primary" (click)="AgregarEstudiantesCurso()">Guardar cambios</button>
+                              
+            </div>
+
+        </mat-grid-tile>
+    </mat-grid-list>
+
 </div>

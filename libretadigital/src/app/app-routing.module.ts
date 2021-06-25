@@ -11,6 +11,7 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
   import { LoginComponent } from './components/login/login.component';
 import { CursosDocenteComponent } from './components/cursos-docente/cursos-docente.component';
 import { ClasesComponent } from './components/clases/clases.component';
+import { EstudiantesCursoComponent } from './components/estudiantes-curso/estudiantes-curso.component';
 
 
 const routes: Routes = [
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'Usuarios', component: UsuariosComponent },
   { path: 'Ingresar', component: LoginComponent },
   { path: 'CursosDocente', component: CursosDocenteComponent },
-  { path: 'Clases', component: ClasesComponent}
+  { path: 'Clases', component: ClasesComponent},
+  { path: 'EstudiantesCurso', component: EstudiantesCursoComponent}
   
 
 

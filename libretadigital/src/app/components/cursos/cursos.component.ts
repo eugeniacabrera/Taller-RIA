@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EstudianteService } from 'src/services/estudiante.service';
 import { UsuarioServiceService } from 'src/services/usuario-service.service';
 import { CursoService } from './../../../services/curso.service';
 
@@ -12,7 +13,11 @@ import { CursoService } from './../../../services/curso.service';
 export class CursosComponent implements OnInit {
 
   
-  constructor(private router:Router, private cursoService :CursoService, private usuarioService: UsuarioServiceService) { }
+  constructor(
+    private router:Router,
+    private cursoService :CursoService,
+    private usuarioService: UsuarioServiceService, 
+    private estudianteService: EstudianteService) { }
 
   ngOnInit(): void {
 
@@ -42,8 +47,19 @@ export class CursosComponent implements OnInit {
       }
     );
 
-  }
+    this.estudianteService.CargarEstudiantes().subscribe(
+      (data: any[]) => {
+      
+      this.estudiantesList = data;
+      
+      },
+      (error) =>{
+        console.log('fallo al cargar estudiantes ', error);
+      },
+      () => {}
+    );
 
+  }
 
 
   Cursos = []
@@ -52,14 +68,20 @@ export class CursosComponent implements OnInit {
   UsuariosRoles = [];
   displayedColumns: string[] = ['curso', 'accion'];
   dataSource = this.Cursos;
+  
   mostrarFormAgregar = false;
   mostrarTablaCursos = true;
-  mostrarFormEditar = false;  
+  mostrarFormEditar = false; 
+  mostrarInfoCurso = false; 
   
   cursoSeleccionado = [];
   nombreCursoSeleccionado= '';
   programaCursoSeleccionado = '';
   descripcionCursoSeleccionado = '';
+  selectedDocente = '';
+
+  estudiantesList = []; // lo q contiene el multiselect
+  estudiantesFormControl = new FormControl(); // lo q guarda el multiselect
 
   CURSO = new FormGroup({
     nombre: new FormControl(''),
@@ -75,12 +97,14 @@ export class CursosComponent implements OnInit {
     
   })
 
+  
 
   // muestra form agregar curso
   AgregarCurso = async () => {
     
     this.mostrarTablaCursos = false;
     this.mostrarFormEditar = false;
+    this.mostrarInfoCurso = false;
     this.mostrarFormAgregar = true;
 
   }
@@ -154,25 +178,31 @@ export class CursosComponent implements OnInit {
     for(let curso of this.Cursos){
       
       if(curso.nombre === this.nombreCursoSeleccionado){
-        this.cursoSeleccionado.push(curso);
+        
+        this.cursoSeleccionado = [curso];
+        console.log('this.cursoSeleccionado[0]: ', this.cursoSeleccionado[0].docente.userName);
         this.descripcionCursoSeleccionado = curso.descripcion;
         this.programaCursoSeleccionado = curso.programa; 
 
         // seteo los formcontrols de CURSOEDITADO:
         this.CURSOEDITADO.controls['nombre'].setValue(this.nombreCursoSeleccionado); 
         this.CURSOEDITADO.controls['descripcion'].setValue(this.descripcionCursoSeleccionado); 
-        this.CURSOEDITADO.controls['programa'].setValue(this.programaCursoSeleccionado);     
+        this.CURSOEDITADO.controls['programa'].setValue(this.programaCursoSeleccionado);   
+        // seteo docente
+        this.selectedDocente = this.cursoSeleccionado[0].docente.userName  
       }
     }
     
     this.mostrarFormAgregar = false;
     this.mostrarTablaCursos = false;
+    this.mostrarInfoCurso = false;
     this.mostrarFormEditar = true;
     
   }
 
   // // enviar id del objeto editado al servicio para que le pegue a la api y lo actualice
   Editar(idDocente){
+    
     let cursoeditadojson = {
         "id": this.cursoSeleccionado[0].id,
         "nombre": this.CURSOEDITADO.value.nombre,
@@ -196,6 +226,40 @@ export class CursosComponent implements OnInit {
     
   }
 
+  VerCurso(nombre){
+    this.nombreCursoSeleccionado = nombre;
+    for(let curso of this.Cursos){
+      if(curso.nombre === this.nombreCursoSeleccionado){
+        this.cursoSeleccionado = [curso]; 
+        console.log('this.cursoSeleccionado', this.cursoSeleccionado);
+
+      }
+    }
+
+
+    this.mostrarFormAgregar = false;
+    this.mostrarTablaCursos = false;
+    this.mostrarFormEditar = false;
+    this.mostrarInfoCurso = true;
+  }
+
+  AgregarEstudiantesCurso(){
+    let idsEstudiantes = []
+    
+    idsEstudiantes = this.estudiantesFormControl.value;
+    console.log('idsEstudiantes: ' ,idsEstudiantes);
+    for(let idEstu of idsEstudiantes){
+      let json = {
+        "estudianteId": idEstu,
+        "cursoId": this.cursoSeleccionado[0].id
+      }
+      this.estudianteService.AgregarEstudianteCurso(json);
+    }
+    this.router.navigate(['/InicioAdmin']);
+    
+  }
+
 
 
 }
+

@@ -20,7 +20,7 @@ export class RolesComponent implements OnInit {
   mostrarTabla = true;
   mostrarTablaEditar = false;
   usuarioSeleccionado: ''; // el que selecciona para editar el rol
-  
+  selectedRol = '';
 
     ngOnInit(): void {
    

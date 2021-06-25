@@ -58,4 +58,29 @@ export class EstudianteService {
             console.log("The PUT observable is now completed.");
         });
   }
+
+  public CargarEstudiantesCurso(id: string){
+
+    let httpParams = new HttpParams().set('cursoId', id);
+    return this.http.get(this.URL_API + 'EstudiantesCursos', {params: httpParams});
+  }
+
+  public AgregarEstudianteCurso(EstuCurso: object){
+    return this.http.post(this.URL_API + 'EstudiantesCursos', EstuCurso).subscribe(
+        (val) => {
+            console.log("POST call successful value returned in body", 
+                        val);
+        },
+        response => {
+            console.log("POST call in error", response);
+        },
+        () => {
+            console.log("The POST observable is now completed.");
+        });
+  }
+
+  
+
+  
+
 }
