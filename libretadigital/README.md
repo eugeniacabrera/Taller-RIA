@@ -1,4 +1,10 @@
-# Libretadigital
+# Libreta Digital
+
+Si bien UTEC cuenta con una libreta digital, esta no está preparada a los requerimientos que la carrera necesita, por lo cual se plantea la creación de una más acorde a las necesidades y se lleva a cabo con este nuevo desarrollo.
+El alcance del proyecto es específicamente para el desarrollo del Front-End, por tanto se cuenta con una API
+con las funcionalidades necesarias para el proyecto.
+
+## Code generation
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.8.
 
