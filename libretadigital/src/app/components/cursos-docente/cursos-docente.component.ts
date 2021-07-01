@@ -2,6 +2,8 @@ import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CursoService } from 'src/services/curso.service';
+import { EstudianteService } from 'src/services/estudiante.service';
+import { ClaseService } from 'src/services/clase.service';
 
 @Component({
   selector: 'app-cursos-docente',
@@ -10,7 +12,7 @@ import { CursoService } from 'src/services/curso.service';
 })
 export class CursosDocenteComponent implements OnInit {
 
-  constructor(private router:Router, private cursoService :CursoService) { }
+  constructor(private router:Router, private cursoService :CursoService, private estudianteService :EstudianteService, private claseService: ClaseService) { }
 
   ngOnInit(): void {
     
@@ -18,7 +20,6 @@ export class CursosDocenteComponent implements OnInit {
     this.cursoService.MisCursos().subscribe(
       (data: any[]) => {
         this.CursosDocente = data;
-        
       },
       (error) => {
         console.log('fallo al cargar cursos del docente', error);
@@ -28,6 +29,8 @@ export class CursosDocenteComponent implements OnInit {
         
       }
     );
+
+    
 
   }
 
@@ -43,13 +46,17 @@ export class CursosDocenteComponent implements OnInit {
   descripcionCursoSeleccionado = '';
   docenteCursoSeleccionado = '';
 
+  
+
   // muestra seccion en el html con la info curso, mas link a estudiantes y clases relacionadas.
   VerCurso(id){
     this.idCursoSeleccionado = id;
     localStorage.setItem('idCursoSeleccionado', this.idCursoSeleccionado); // para acceder desde clases
+    
     for(let cursodocente of this.CursosDocente){
       if(cursodocente.id === this.idCursoSeleccionado){
         this.cursoDocenteSeleccionado.push(cursodocente);
+  
         this.nombreCursoSeleccionado = cursodocente.nombre;;
         this.descripcionCursoSeleccionado = cursodocente.descripcion;
         this.programaCursoSeleccionado = cursodocente.programa; 
@@ -58,10 +65,17 @@ export class CursosDocenteComponent implements OnInit {
       }
 
     }
-
+    
+      
     this.mostrarTablaCursosDocente = false;
     this.mostrarInfoCurso = true;
   }
+
+
+  
+
+
+
 
 
 }

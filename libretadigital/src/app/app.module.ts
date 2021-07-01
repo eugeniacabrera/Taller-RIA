@@ -39,6 +39,7 @@ import { CursosDocenteComponent } from './components/cursos-docente/cursos-docen
 import { ClasesComponent } from './components/clases/clases.component';
 import { ClaseService } from 'src/services/clase.service';
 import { EstudiantesCursoComponent } from './components/estudiantes-curso/estudiantes-curso.component';
+import { ResumenCursoComponent } from './components/resumen-curso/resumen-curso.component';
 
 
 //<mat-toolbar>
@@ -60,6 +61,7 @@ import { EstudiantesCursoComponent } from './components/estudiantes-curso/estudi
     CursosDocenteComponent,
     ClasesComponent,
     EstudiantesCursoComponent,
+    ResumenCursoComponent,
     
   ],
   imports: [

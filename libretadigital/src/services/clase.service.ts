@@ -59,7 +59,25 @@ export class ClaseService {
 
   }
 
+  public ObtenerAsistenciasClase(claseId: string){
+    return this.http.get(this.URL_API + 'ClaseEstudiantes/Clase/' + `${claseId}`);
+  }
+
+  public EditarAsistenciaEstu(Asistencia: object){
+   
+    return this.http.post(this.URL_API + 'ClaseEstudiantes', Asistencia).subscribe(
+        (val) => {
+            console.log("POST call successful value returned in body", 
+                        val);
+        },
+        response => {
+            console.log("POST call in error", response);
+        },
+        () => {
+            console.log("The POST observable is now completed.");
+        });
   
+  }
 
 
 }

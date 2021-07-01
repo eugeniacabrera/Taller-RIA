@@ -40,7 +40,8 @@ export class AuthService {
         localStorage.removeItem("id_token");
         localStorage.removeItem("expires_at");
         localStorage.removeItem("datosLogueado");
-
+        localStorage.removeItem("idCursoSeleccionado");
+        localStorage.removeItem("idClaseSeleccionada");
     }
 
     ObtenerDataInfoUsuarioLogueado(){

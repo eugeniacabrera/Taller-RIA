@@ -8,7 +8,7 @@
             </a>
         </div>
 
-        <table mat-table [dataSource]="Clases" class="mat-elevation-z8 estiloTabla">
+        <table mat-table [dataSource]="Clases" class="mat-elevation-z8 estiloTablaListaClases">
             
             <!-- TITULO Column -->
             <ng-container matColumnDef="titulo">
@@ -32,14 +32,14 @@
             <ng-container matColumnDef="accion">
                 <th mat-header-cell *matHeaderCellDef class="headerTable"> ACCIÓN </th>
                 <td mat-cell *matCellDef="let element">
-
                     <a (click)="EditarClase(element.id)" mat-icon-button>
                         <mat-icon>edit</mat-icon>
                     </a>
                     <a (click)="Eliminar(element.id)" mat-icon-button color="warn">
                         <mat-icon>delete</mat-icon>
                     </a>
-
+                    <button mat-raised-button (click)="PasarLista(element.id)">PASAR LISTA</button>
+                    <button mat-raised-button (click)="Asistencias(element.id)">ASISTENCIAS</button>
                 </td>
             </ng-container>
 
@@ -105,5 +105,91 @@
 
         </mat-card>
 
+    </div>
+</div>
+
+<div *ngIf="mostrarTablaPasarLista== true">
+
+    <div class="parent">
+        <div class="tituloTabla">
+            <h1>PASAR LISTA</h1>
+        </div>
+
+        <table mat-table [dataSource]="EstudiantesCurso" class="mat-elevation-z8 estiloTablaPasarLista">
+
+            <!-- Nombre Column -->
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef class="headerTable"> NOMBRE </th>
+                <td mat-cell *matCellDef="let element"> {{element.estudiante.primerNombre}} </td>
+            </ng-container>
+            <!-- Asistencia Column -->
+            <ng-container matColumnDef="asistencia">
+                <th mat-header-cell *matHeaderCellDef class="headerTable" style="text-align: right;"> ASISTENCIA </th>
+                <td mat-cell *matCellDef="let element"> 
+                    
+                    <a (click)="EditarAsistencia(element.estudiante.id)" mat-icon-button style="float: right;">
+                        <mat-icon>edit</mat-icon>
+                    </a>
+                    
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsPasarLista"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsPasarLista;"></tr>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="mostrarTablaEditarAsistencia == true">
+    <div *ngIf=" idEstudianteSeleccionado !== '' ">
+        <div class="parent">
+            <h1>EDITAR ASISTENCIA</h1>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Seleccionar asistencia</mat-label>
+                <mat-select [(value)]="selectedAsistencia">
+                    <mat-option value="true">ASISTE</mat-option>
+                    <mat-option value="false">NO ASISTE</mat-option>
+                </mat-select>
+            
+            </mat-form-field><br />
+
+            <button  mat-raised-button color="primary"
+                (click)="EditarAsistenciaService(idEstudianteSeleccionado, selectedAsistencia)">Guardar cambios</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="mostrarAsistencias == true">
+
+    <div class="parent">
+        <div class="tituloTabla">
+            <h1>ASISTENCIAS</h1>
+        </div>
+
+        <table mat-table [dataSource]="AsistenciasEstudiantes" class="mat-elevation-z8 estiloTabla">
+
+            <!-- ESTUDIANTE Column -->
+            <ng-container matColumnDef="estudiante">
+                <th mat-header-cell *matHeaderCellDef class="headerTable"> ESTUDIANTE </th>
+                <td mat-cell *matCellDef="let element"> {{element.estudiante.primerNombre}} </td>
+            </ng-container>
+
+            <!-- ASISTENCIA Column -->
+            <ng-container matColumnDef="asistencia">
+                <th mat-header-cell *matHeaderCellDef class="headerTable"> ASISTENCIA </th>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngIf="element.asiste === true">
+                        ASISTIÓ
+                    </div>
+                    <div *ngIf="element.asiste === false">
+                        NO ASISTIÓ
+                    </div>
+                    </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsAsistencias"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsAsistencias;"></tr>
+        </table>
     </div>
 </div>

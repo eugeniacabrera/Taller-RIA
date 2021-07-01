@@ -79,6 +79,24 @@ export class EstudianteService {
         });
   }
 
+  public EliminarEstuCurso(id: string){
+    return this.http.delete(this.URL_API + 'EstudiantesCursos/' + `${id}`).subscribe(
+        (val) => {
+            console.log("DELETE call successful value returned in body", 
+                        val);
+        },
+        response => {
+            console.log("DELETE call in error", response);
+        },
+        () => {
+            console.log("The DELETE observable is now completed.");
+        });
+  }
+
+  public CursosEstudiante(idEstu: string){
+      let httpParams = new HttpParams().set('estudianteId', idEstu);
+      return this.http.get(this.URL_API + 'EstudiantesCursos/Estudiante', {params: httpParams});
+  }
   
 
   

@@ -55,6 +55,12 @@
                     <label style="font-size: 1.3em;font-weight: 400;">DOCENTE:</label>
                     <p>{{ docenteCursoSeleccionado }}</p><br />
                 </div>
+                <div>
+                    <a routerLink="/ResumenCurso" mat-raised-button color="primary">RESUMEN CURSO</a>
+
+                </div>
+
+                
 
             </div>
 
@@ -62,15 +68,14 @@
 
         <!-- LINK A ESTUDIANTES CLASES EVALUACIONES -->
         <mat-grid-tile>
-            <div>
+            <div style="margin-top: -12em;">
+ 
+    
                 <mat-card class="elementosCurso">
                     <a routerLink="/EstudiantesCurso" class="tituloMenu">ESTUDIANTES</a>
                 </mat-card><br />
                 <mat-card class="elementosCurso">
                     <a routerLink="/Clases" class="tituloMenu">CLASES</a>
-                </mat-card><br />
-                <mat-card class="elementosCurso">
-                    <a routerLink="#" class="tituloMenu">EVALUACIONES</a>
                 </mat-card><br />
             </div>
 
@@ -78,3 +83,4 @@
     </mat-grid-list>
 
 </div>
+

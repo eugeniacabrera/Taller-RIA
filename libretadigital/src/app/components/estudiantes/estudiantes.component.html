@@ -48,9 +48,9 @@
                 <th mat-header-cell *matHeaderCellDef class="headerTable"> ACCIÓN </th>
                 <td mat-cell *matCellDef="let element">
 
-                    <!-- <a (click)="VerEstudiante()" mat-icon-button color="primary">
+                    <a (click)="VerEstudiante(element.id)" mat-icon-button color="primary">
                         <mat-icon>remove_red_eye</mat-icon>
-                    </a> -->
+                    </a> 
                     <a (click)="EditarEstudiante(element.id)" mat-icon-button>
                         <mat-icon>edit</mat-icon>
                     </a>
@@ -147,4 +147,90 @@
         </mat-card>
 
     </div>
+</div>
+
+<div *ngIf="mostrarInfoEstu == true">
+    <mat-grid-list cols="2" rowHeight="2:1">
+        <!-- INFO ESTU -->
+        <mat-grid-tile>
+
+            <div class="tituloCurso">
+                <p>INFORMACIÓN ESTUDIANTE</p>
+            </div>
+            <div class="infoEstu">
+                <div>
+                    <label style="font-size: 1.3em;font-weight: 400;">PRIMER NOMBRE:</label>
+                    <p>{{ EstudianteSeleccionado[0].primerNombre }}</p> <br />
+                </div>
+                <div>
+                    <label style="font-size: 1.3em;font-weight: 400;">SEGUNDO NOMBRE:</label>
+                    <p>{{ EstudianteSeleccionado[0].segundoNombre }}</p> <br />
+                </div>
+                <div>
+                    <label style="font-size: 1.3em;font-weight: 400;">PRIMER APELLIDO:</label>
+                    <p>{{ EstudianteSeleccionado[0].primerApellido}}</p><br />
+                </div>
+                <div>
+                    <label style="font-size: 1.3em;font-weight: 400;">SEGUNDO APELLIDO:</label>
+                    <p>{{ EstudianteSeleccionado[0].segundoApellido}}</p><br />
+                </div>
+                <div>
+                    <label style="font-size: 1.3em;font-weight: 400;">DOCUMENTO:</label>
+                    <p>{{ EstudianteSeleccionado[0].documento }}</p><br />
+                </div>
+                <div>
+                    <label style="font-size: 1.3em;font-weight: 400;">FECHA NACIMIENTO:</label>
+                    <p>{{ EstudianteSeleccionado[0].fechaNacimiento }}</p><br />
+                </div>
+            </div>
+
+        </mat-grid-tile>
+
+        <!-- AGREGAR CURSO -->
+        <mat-grid-tile>
+            <div class="contenedorEstuYagregar">
+                <div style="margin-top: -19em;">
+
+                    <label style="font-size: 1.3em;font-weight: 400; ">AGREGAR ESTUDIANTE AL CURSO:</label>
+
+                    <mat-form-field appearance="fill" class="elementosCurso">
+                        <mat-label>Seleccionar curso:</mat-label>
+                        <mat-select [formControl]="cursosFormControl" multiple>
+                            <mat-option *ngFor="let curso of Cursos" [value]="curso.id">{{curso.nombre}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <button class="estiloBoton" mat-raised-button color="primary"
+                        (click)="AgregarCursoEstudiante()">Guardar cambios</button>
+
+                </div>
+                <!-- TABLA ESTUDIANTE CURSOS -->
+
+                <table mat-table [dataSource]="EstudianteCursos" class="mat-elevation-z8 estiloTablaCurso" style="margin-top: 2em;">
+
+                    <!-- Nombre1 Column -->
+                    <ng-container matColumnDef="curso">
+                        <th mat-header-cell *matHeaderCellDef class="headerTable" style="text-align: left;"> CURSO </th>
+                        <td mat-cell *matCellDef="let element"> {{element.curso.nombre}} </td>
+                    </ng-container>
+
+                    <!-- Action Column -->
+                    <ng-container matColumnDef="accion">
+                        <th mat-header-cell *matHeaderCellDef class="headerTable"> ACCIÓN </th>
+                        <td mat-cell *matCellDef="let element" style="text-align: right;">
+                            <a (click)="EliminarCursoEstu(element.id)" mat-icon-button color="warn">
+                                <mat-icon>delete</mat-icon>
+                            </a>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsEstuCurso"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsEstuCurso;"></tr>
+                </table>
+            </div>
+
+        </mat-grid-tile>
+    </mat-grid-list>
+
 </div>

@@ -67,7 +67,9 @@ export class CursosComponent implements OnInit {
   Usuarios = [];
   UsuariosRoles = [];
   displayedColumns: string[] = ['curso', 'accion'];
+  displayedColumnsEstuCurso: string[] = ['nombre1', 'accion'];
   dataSource = this.Cursos;
+  EstudiantesCurso = [];
   
   mostrarFormAgregar = false;
   mostrarTablaCursos = true;
@@ -79,6 +81,7 @@ export class CursosComponent implements OnInit {
   programaCursoSeleccionado = '';
   descripcionCursoSeleccionado = '';
   selectedDocente = '';
+  idSelectedDocente = '';
 
   estudiantesList = []; // lo q contiene el multiselect
   estudiantesFormControl = new FormControl(); // lo q guarda el multiselect
@@ -180,16 +183,19 @@ export class CursosComponent implements OnInit {
       if(curso.nombre === this.nombreCursoSeleccionado){
         
         this.cursoSeleccionado = [curso];
-        console.log('this.cursoSeleccionado[0]: ', this.cursoSeleccionado[0].docente.userName);
+        
         this.descripcionCursoSeleccionado = curso.descripcion;
         this.programaCursoSeleccionado = curso.programa; 
+        this.selectedDocente = curso.docente.userName;
+        this.idSelectedDocente =  curso.docenteId;
 
         // seteo los formcontrols de CURSOEDITADO:
         this.CURSOEDITADO.controls['nombre'].setValue(this.nombreCursoSeleccionado); 
         this.CURSOEDITADO.controls['descripcion'].setValue(this.descripcionCursoSeleccionado); 
         this.CURSOEDITADO.controls['programa'].setValue(this.programaCursoSeleccionado);   
         // seteo docente
-        this.selectedDocente = this.cursoSeleccionado[0].docente.userName  
+        // this.selectedDocente = this.cursoSeleccionado[0].docente.userName
+        // this.idSelectedDocente =  this.cursoSeleccionado[0].docenteId
       }
     }
     
@@ -201,17 +207,23 @@ export class CursosComponent implements OnInit {
   }
 
   // // enviar id del objeto editado al servicio para que le pegue a la api y lo actualice
-  Editar(idDocente){
+  Editar(selectedDocente){
     
+    for(let docente of this.Docentes){
+      if(docente.userName == selectedDocente){
+        this.idSelectedDocente =  docente.userId
+      }
+    }
+
     let cursoeditadojson = {
         "id": this.cursoSeleccionado[0].id,
         "nombre": this.CURSOEDITADO.value.nombre,
         "descripcion": this.CURSOEDITADO.value.descripcion,
         "programa": this.CURSOEDITADO.value.programa,
-        "docenteId": idDocente,
+        "docenteId": this.idSelectedDocente,
 
     }
-    
+    console.log('cursoeditadojson :', cursoeditadojson)
     // llamar servicio
     this.cursoService.EditarCurso(cursoeditadojson, this.cursoSeleccionado[0].id);
     this.router.navigate(['/InicioAdmin']);
@@ -232,9 +244,19 @@ export class CursosComponent implements OnInit {
       if(curso.nombre === this.nombreCursoSeleccionado){
         this.cursoSeleccionado = [curso]; 
         console.log('this.cursoSeleccionado', this.cursoSeleccionado);
-
       }
     }
+
+    // mostrar estudiantes que estan en el curso
+    this.estudianteService.CargarEstudiantesCurso(this.cursoSeleccionado[0].id).subscribe(
+      (data: any[]) => {
+      this.EstudiantesCurso = data;
+      console.log("this.EstudiantesCurso", this.EstudiantesCurso);
+      },
+      (error) =>{
+        console.log('fallo al cargar estudiantes curso ', error);
+      }
+    );
 
 
     this.mostrarFormAgregar = false;
@@ -257,6 +279,11 @@ export class CursosComponent implements OnInit {
     }
     this.router.navigate(['/InicioAdmin']);
     
+  }
+
+  EliminarEstuCurso(idEstu){
+    this.estudianteService.EliminarEstuCurso(idEstu);
+    this.router.navigate(['/InicioAdmin']);
   }
 
 

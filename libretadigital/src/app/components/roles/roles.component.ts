@@ -58,6 +58,17 @@ export class RolesComponent implements OnInit {
   
   // CARGAR ROLES 
   
+  async CargarRolesUsuario() {
+  
+    for (let usuario of this.Usuarios){
+
+      let userroljson = await this.ObtenerRolUsuario(usuario.userName);
+      this.UsuariosRoles.push(userroljson); 
+   
+    } 
+    this.SetearDataSource(this.UsuariosRoles);     
+  }
+  
   async ObtenerRolUsuario(userName){
     let userroles = {}
     const data = await this.usuarioService.ObtenerRolesUsuario(userName);
@@ -69,17 +80,6 @@ export class RolesComponent implements OnInit {
     return userroles;
   }
 
-  async CargarRolesUsuario() {
-  
-    for (let usuario of this.Usuarios){
-
-      let userroljson = await this.ObtenerRolUsuario(usuario.userName);
-      this.UsuariosRoles.push(userroljson); 
-   
-    } 
-    this.SetearDataSource(this.UsuariosRoles);     
-  }
-
   SetearDataSource(Usersroles){
     this.dataSource = Usersroles;
     console.log(this.dataSource);
@@ -87,7 +87,6 @@ export class RolesComponent implements OnInit {
 
 // FIN CARGAR ROLES
   
-
   EditarRol(userName) {
     
     this.mostrarTabla = false; // oculto tabla lista de usuarios con sus roles
@@ -97,8 +96,6 @@ export class RolesComponent implements OnInit {
   }
 
   GuardarCambios(usuarioSeleccionado, selectedRol){
-    console.log('usuarioselec: ', usuarioSeleccionado);
-    console.log('selectedRol: ', selectedRol);
     this.usuarioService.EditarRol(usuarioSeleccionado, selectedRol);
     this.router.navigate(['/InicioAdmin']);
 

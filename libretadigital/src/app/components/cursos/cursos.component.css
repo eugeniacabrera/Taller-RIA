@@ -9,7 +9,13 @@
 } 
 
 .estiloTabla{
+    
     width: 50%;
+}
+
+.estiloTablaEstu{
+    margin-top: 1em;
+    width: 20em;
 }
 
 .headerTable{
@@ -42,7 +48,7 @@ mat-grid-tile {
   text-align: center;
   font-size: x-large;
   position: absolute;
-  top: 15%;
+  top: 8%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: black;
@@ -56,7 +62,7 @@ position: relative;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 6em;
+  margin-top: -10em;
   text-align: center;
   
 }
@@ -75,3 +81,7 @@ position: relative;
     font-weight: bold;
 }
   
+
+.contenedorEstuYagregar{
+    position: relative;
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CursoService } from 'src/services/curso.service';
 import { EstudianteService } from 'src/services/estudiante.service';
 
 
@@ -12,7 +13,7 @@ import { EstudianteService } from 'src/services/estudiante.service';
 })
 export class EstudiantesComponent implements OnInit {
 
-  constructor(private router:Router, private estudianteService :EstudianteService) { }
+  constructor(private router:Router, private estudianteService :EstudianteService, private cursoService: CursoService) { }
 
   ngOnInit(): void {
     
@@ -48,10 +49,15 @@ export class EstudiantesComponent implements OnInit {
   mostrarTablaEstudiantes = true;
   mostrarTablaAgregar= false;
   mostrarTablaEditar = false;
+  mostrarInfoEstu = false;
   Estudiantes = [];
   displayedColumns: string[] = ['documento', 'nombre1', 'nombre2', 'apellido1', 'apellido2', 'fnac'  ,'accion'];
   idEstuSeleccionado = '';
-
+  EstudianteSeleccionado = [];
+  EstudianteCursos = [];
+  cursosFormControl = new FormControl(); // lo q guarda el multiselect
+  displayedColumnsEstuCurso: string[] = ['curso', 'accion'];
+  Cursos = [];
   
 
   // muestra form editar estudiante
@@ -59,6 +65,7 @@ export class EstudiantesComponent implements OnInit {
     
     this.mostrarTablaEstudiantes = false;
     this.mostrarTablaEditar = false;
+    this.mostrarInfoEstu = false;
     this.mostrarTablaAgregar = true;
 
   }
@@ -97,6 +104,7 @@ export class EstudiantesComponent implements OnInit {
 
     this.mostrarTablaAgregar = false;
     this.mostrarTablaEstudiantes = false;
+    this.mostrarInfoEstu = false;
     this.mostrarTablaEditar = true;
   }
 
@@ -125,4 +133,70 @@ export class EstudiantesComponent implements OnInit {
     this.router.navigate(['/InicioAdmin']);
 
   }
+
+  VerEstudiante(idestudiante){
+
+    for(let estu of this.Estudiantes){
+      if(estu.id === idestudiante){
+        this.idEstuSeleccionado = idestudiante;
+        this.EstudianteSeleccionado = [estu];
+        console.log('this.EstudianteSeleccionado', this.EstudianteSeleccionado);
+        
+      }
+    }
+
+    this.estudianteService.CursosEstudiante(idestudiante).subscribe(
+      (data: any[]) => {
+      this.EstudianteCursos = data;
+      console.log("this.EstudianteCursos", this.EstudianteCursos);
+      },
+      (error) =>{
+        console.log('fallo al cargar cursos del estudiante ', error);
+      }
+    );
+
+    this.cursoService.CargarCursos().subscribe(
+      (data: any[]) => {
+        this.Cursos = data;
+        console.log('this.Cursos', this.Cursos);
+      },
+      (error) => {
+        console.log('fallo al cargar cursos ', error);
+      },
+      () => {}
+    );
+
+
+
+    this.mostrarTablaAgregar = false;
+    this.mostrarTablaEstudiantes = false;
+    this.mostrarTablaEditar = false;
+    this.mostrarInfoEstu = true;
+
+  }
+
+  AgregarCursoEstudiante(){
+    let idsCursos = []
+
+    idsCursos = this.cursosFormControl.value;
+    for(let idCurso of idsCursos){
+      let json = {
+        "estudianteId": this.idEstuSeleccionado,
+        "cursoId": idCurso
+      }
+      this.estudianteService.AgregarEstudianteCurso(json);
+      this.router.navigate(['/InicioAdmin']);
+
+    }
+
+
+
+
+  }
+
+  EliminarCursoEstu(idCurso){
+    this.estudianteService.EliminarEstuCurso(idCurso);
+    this.router.navigate(['/InicioAdmin']);
+  }
+
 }
